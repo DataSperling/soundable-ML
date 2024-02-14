@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-class audio_file_reader:
+class AudioFileReader:
   yml_config = 'config.yml'
 
 
@@ -38,7 +38,6 @@ def load_resource(path):
     raise FileNotFoundError(
       errno.ENOENT, os.strerror(errno.ENOENT), path)
   return right_chan
-
 
 
 load_resource(read_resource('config.yml', 'test_audio'))

@@ -9,6 +9,8 @@ class AudioFileReader:
   yml_config = 'config.yml'
 
 # Read appropriate file path from config.yaml
+# @param: audio set to be accessed by user
+# @return: path to appropriate data set (training, validation. test)
 def read_path(audio_set):
   with open('../config.yml', 'r') as stream:
     try:
@@ -21,7 +23,9 @@ def read_path(audio_set):
       print(exception)
   return path
 
-# Compute signal array for given sample
+# Compute signal array for given audio sample
+# @param: audio sample for which image is being computed
+# @return: assumes single channel audio is right channel
 def compute_signal_array(audio_file):
   right_chan = []
   if audio_file.endswith(".wav"):
@@ -38,13 +42,16 @@ def compute_signal_array(audio_file):
   return right_chan
 
 # Compute time stamp array
+# @param: audio file for which image is being computed
+# @return: row vector ('array') with dimensions of audio_sample
 def compute_time_stamps(audio_sample):
   return np.linspace(
     0,
     audio_sample.getnframes() / audio_sample.getframerate(),
     num=audio_sample.getnframes())
 
-# Compute mel spectra
+# Compute mel spectra of given audio sample
+# @param: audio sample for which mel-spectrum is being computed
 def compute_mel(audio_sample):
   pass
 

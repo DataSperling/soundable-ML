@@ -8,7 +8,6 @@ import numpy as np
 class AudioFileReader:
   yml_config = 'config.yml'
 
-
 # Read appropriate file path from config.yaml
 def read_path(audio_set):
   with open('../config.yml', 'r') as stream:
@@ -22,26 +21,37 @@ def read_path(audio_set):
       print(exception)
   return path
 
-# Compute mel
-def compute_signal_array(audio_set):
-  dir_path = read_path(audio_set)
-  right_chan= []
-  for audio_file in os.listdir(dir_path):
-    if audio_file.endswith(".wav"):
-      try:
-        audio = wave.open("zzz")
-        sig_arr = np.frombuffer(audio.readframes(audio.getnframes()), dtype=np.int16)
-        if audio.getnframes() != 1:
-          right_chan = sig_arr[1::2]
-        else:
-          right_chan = sig_arr
-      except:
-        raise PermissionError(
-          errno.ENOENT, os.strerror(errno.ENOENT), dir_path)
+# Compute signal array for given sample
+def compute_signal_array(audio_file):
+  right_chan = []
+  if audio_file.endswith(".wav"):
+    try:
+      audio = wave.open(audio_file)
+      sig_arr = np.frombuffer(audio.readframes(audio.getnframes()), dtype=np.int16)
+      if audio.getnchannels() != 1:
+        right_chan = sig_arr[1::2]
+      else:
+        right_chan = sig_arr
+    except:
+      raise PermissionError(
+        errno.EACCES, os.strerror(errno.EACCES), audio_file)
   return right_chan
 
+# Compute time stamp array
+def compute_time_stamps(audio_sample):
+  return np.linspace(
+    0,
+    audio_sample.getnframes() / audio_sample.getframerate(),
+    num=audio_sample.getnframes())
+
 # Compute mel spectra
-def compute_mel():
+def compute_mel(audio_sample):
+  pass
+
+def compute_fft():
+  pass
+
+def compute_dft():
   pass
 
 # Plot random sample of mel spectra

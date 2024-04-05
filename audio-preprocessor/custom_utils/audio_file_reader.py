@@ -8,11 +8,12 @@ import numpy as np
 class AudioFileReader:
   yml_config = 'config.yml'
 
+
 # Read appropriate file path from config.yaml
 # @param: audio set to be accessed by user
 # @return: path to appropriate data set (training, validation. test)
 def read_path(audio_set):
-  with open('../config.yml', 'r') as stream:
+  with open('../resources/config.yml', 'r') as stream:
     try:
       data = yaml.safe_load(stream)
       if audio_set in data['paths']:
@@ -22,6 +23,7 @@ def read_path(audio_set):
     except yaml.YAMLError as exception:
       print(exception)
   return path
+
 
 # Compute signal array for given audio sample
 # @param: audio sample for which image is being computed
@@ -41,6 +43,7 @@ def compute_signal_array(audio_file):
         errno.EACCES, os.strerror(errno.EACCES), audio_file)
   return right_chan
 
+
 # Compute time stamp array
 # @param: audio file for which image is being computed
 # @return: row vector ('array') with dimensions of audio_sample
@@ -50,17 +53,3 @@ def compute_time_stamps(audio_sample):
     audio_sample.getnframes() / audio_sample.getframerate(),
     num=audio_sample.getnframes())
 
-# Compute mel spectra of given audio sample
-# @param: audio sample for which mel-spectrum is being computed
-def compute_mel(audio_sample):
-  pass
-
-def compute_fft():
-  pass
-
-def compute_dft():
-  pass
-
-# Plot random sample of mel spectra
-def sample_plot():
-  pass

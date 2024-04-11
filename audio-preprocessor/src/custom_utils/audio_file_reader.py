@@ -1,10 +1,8 @@
 import os
-
 import yaml
 import glob
 
 class AudioFileReader:
-
 
   def __init__(self):
     '''
@@ -12,7 +10,6 @@ class AudioFileReader:
     '''
     self.__config_path = "src/resources/config.yml"
     self.available_set = ("test_samp", "train_samp", "val_samp")
-
 
   def read_path(self, required_set):
     '''
@@ -33,7 +30,7 @@ class AudioFileReader:
         except yaml.YAMLError as exception:
           return exception
 
-  def list_files(file_dir):
+  def list_files(self, file_dir):
     '''
     @param file_dir: source directory
     @return: list of files in file_dir

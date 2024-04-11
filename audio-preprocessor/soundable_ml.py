@@ -7,11 +7,17 @@ class SoundableML:
   @staticmethod
   def main():
     file_dir = AudioFileReader().read_path("test_samp")
-    file_list = AudioFileReader.list_files(file_dir)
-    sig_arr = SpectraProcessor().gen_signal_array(
+    audio_sample = SpectraProcessor().read_audio(
       file_dir,
-    "XC836745-Common-Starling-Sturnus-vulgaris.wav",
-    ".wav")
+      "XC836745-Common-Starling-Sturnus-vulgaris.wav",
+      ".wav"
+    )
+    signal_array = SpectraProcessor().gen_signal_array(audio_sample)
+
+
+
+
+
 
 
 
